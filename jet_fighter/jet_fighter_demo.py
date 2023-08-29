@@ -1,6 +1,6 @@
 from jet_fighter_env import JetFighterEnv
 from stable_baselines3 import A2C, PPO
-from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize, VecMonitor
+from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize, VecMonitor, VecFrameStack
 import pygame
 import time
 
@@ -8,10 +8,13 @@ pygame.init()
 
 # env = JetFighterEnv()
 env = DummyVecEnv([JetFighterEnv])
+env = VecFrameStack(env, 16)
 env = VecNormalize(env, norm_obs=True, norm_reward=False, clip_obs=10.0, gamma=0.99)
 env = VecMonitor(env)
 
-model = PPO.load("./jet_moving_target", env)
+# model_name = 'jet_10f_delta+polar'
+model_name = 'jet_16f_32s_2-2t'
+model = PPO.load(f"./{model_name}", env)
 clock = pygame.time.Clock()
 
 # Test the trained agent
