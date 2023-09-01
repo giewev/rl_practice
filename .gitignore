@@ -1,0 +1,5 @@
+*.zip
+*.pkl
+tensorboard_logs/*
+*.pyc
+.vscode/*
