@@ -1,0 +1,18 @@
+
+# Scalable MADDPG: Challenges and Possible Solutions
+
+## Challenges:
+
+1. **Scalability**: Traditional MADDPG assumes a fixed number of agents. The critic is trained on the concatenated state and action vectors of all agents, which becomes computationally expensive and less effective as the number of agents increases.
+
+2. **Type Recognition**: In scenarios where there are multiple agents of the same "type," MADDPG will treat each agent as unique. This doesn't allow the model to leverage shared behavior between agents of the same type.
+
+## Possible Solutions:
+
+1. **Recurrent Layers**: Using LSTM or GRU layers can help make the model scalable. These layers take a sequence of states/actions as input and output a fixed-size hidden state that can be used by the critic.
+
+2. **Attention Mechanisms**: Implementing attention (like in Transformers) can help the model focus on the most relevant parts of the state or action space, particularly useful when not all agents contribute equally to the decision-making process.
+
+3. **Entity Embeddings**: For agents of the same "type," an "entity embedding" layer can provide a shared representation, enabling the model to generalize better.
+
+Consider these approaches when you need to adapt MADDPG to more complex and scalable multi-agent scenarios.
